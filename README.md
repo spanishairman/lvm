@@ -206,3 +206,55 @@ Vagrant 2.2.18
     Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в
     Debian12: /dev/mapper/data-large ext4   7,8G         7,8G     0          100% /data
 ```
+Здесь мы видим, что места на файловой системе не осталось, занято 100%, при этом логический том занят не полностью и его размер - 12Гб.
+
+Увеличим размер ФС
+```
+    resize2fs /dev/mapper/data-large
+    Debian12: resize2fs 1.47.0 (5-Feb-2023)
+    Debian12: Filesystem at /dev/mapper/data-large is mounted on /data; on-line resizing required
+    Debian12: old_desc_blocks = 1, new_desc_blocks = 2
+    Debian12: The filesystem on /dev/mapper/data-large is now 3145728 (4k) blocks long.
+```
+Снова выведем информацию о свободном месте
+```
+    df -Th /data
+    Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в
+    Debian12: /dev/mapper/data-large ext4    12G         7,8G  3,4G           70% /data
+```
+Теперь уменьшим файловую систему и том, на котором она создана
+```
+    umount /data/
+
+    e2fsck -fy /dev/mapper/data-large
+    Debian12: e2fsck 1.47.0 (5-Feb-2023)
+    Debian12: Pass 1: Checking inodes, blocks, and sizes
+    Debian12: Pass 2: Checking directory structure   
+    Debian12: Pass 3: Checking directory connectivity
+    Debian12: Pass 4: Checking reference counts
+    Debian12: Pass 5: Checking group summary information
+    Debian12: /dev/mapper/data-large: 12/786432 files (0.0% non-contiguous), 2110529/3145728 blocks
+
+    resize2fs /dev/mapper/data-large 10G
+    Debian12: resize2fs 1.47.0 (5-Feb-2023)
+    Debian12: Resizing the filesystem on /dev/mapper/data-large to 2621440 (4k) blocks.
+    Debian12: The filesystem on /dev/mapper/data-large is now 2621440 (4k) blocks long.
+
+    lvreduce -y /dev/mapper/data-large -L 10G
+    Debian12:   WARNING: Reducing active logical volume to 10,00 GiB.
+    Debian12:   THIS MAY DESTROY YOUR DATA (filesystem etc.)
+    Debian12:   Size of logical volume data/large changed from 12,00 GiB (3072 extents) to 10,00 GiB (2560 extents).
+    Debian12:   Logical volume data/large successfully resized.
+```
+Снова смонтируем фс и сверим её размер и размер тома, на котором она создана
+```
+    mount /dev/mapper/data-large /data/
+
+    df -Th /data/
+    Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в
+    Debian12: /dev/mapper/data-large ext4   9,8G         7,8G  1,6G           84% /data
+
+    lvs /dev/mapper/data-large
+    Debian12:   LV    VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+    Debian12:   large data -wi-ao---- 10,00g
+```
