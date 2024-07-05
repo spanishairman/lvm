@@ -53,7 +53,7 @@ Vagrant 2.2.18
 /dev/vda, то первое дополнительное дисковое устройство будет /dev/vdb.
 
 #### Provisioning. 
-##### Установка пакетов, необходимых для дальнейшей работы
+#### Установка пакетов, необходимых для дальнейшей работы
 Нам потребуются два дополнительных пакета - rsync и arch-install-scripts. Первый - для копирования содержимого разделов /var и /home на новые файловые системы, второй - для генерирования содержимого /etc/fstab.
 ```
   config.vm.provision "shell", inline: <<-SHELL
@@ -64,7 +64,7 @@ Vagrant 2.2.18
   # apt update
     apt install -y rsync arch-install-scripts
 ```
-##### Работа с логическими томами
+#### Работа с логическими томами
 Добавим физические тома и группы томов
 ```
     pvcreate /dev/vdb
@@ -177,6 +177,7 @@ Vagrant 2.2.18
     mount | grep /data
     Debian12: /dev/mapper/data-large on /data type ext4 (rw,relatime)
 ```
+##### Изменение размера логического тома и файловой системы н нём
 Создадим большой файл размером 8Gb и проверим наличие места на диске. Используем команду "dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress", для просмотра свободного места - "df -Th /data/"
 ```
     Debian12: 8232370176 bytes (8,2 GB, 7,7 GiB) copied, 28 s, 291 MB/s
@@ -257,4 +258,38 @@ Vagrant 2.2.18
     lvs /dev/mapper/data-large
     Debian12:   LV    VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
     Debian12:   large data -wi-ao---- 10,00g
+```
+##### Работа со снимками логических томов
+Создадим снимок тома large
+```
+    lvcreate -L 500M --snapshot -n large-snap /dev/mapper/data-large
+    Debian12:   Logical volume "large-snap" created.
+```
+Выведем содержимое /data
+```
+    ls -l /data
+    Debian12: итого 8138196
+    Debian12: drwx------ 2 root root      16384 июл  5 09:55 lost+found
+    Debian12: -rw-r--r-- 1 root root 8333492224 июл  5 09:55 test.log
+```
+Удалим файл test.log и выведем содержимое /data
+```
+    rm /data/test.log
+    ls -l /data
+    Debian12: итого 16
+    Debian12: drwx------ 2 root root 16384 июл  5 09:55 lost+found
+```
+Отмонтируем /data и восстановим том large из снимка
+```
+    umount /data
+    lvconvert --merge /dev/mapper/data-large--snap
+    Debian12:   Merging of volume data/large-snap started.
+    Debian12:   data/large: Merged: 100,00%
+```
+Снова смонтируем том и проверим содержимое /data
+```
+    mount /dev/mapper/data-large /data/
+    df -Th /data/
+    lvs /dev/mapper/data-large
+
 ```
