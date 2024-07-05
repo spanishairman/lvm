@@ -462,10 +462,12 @@ UUID=4a52c237-1e75-40f0-944d-d712cd385901 /boot           ext2    defaults      
 /dev/mapper/vg--system-lvvar    /lvvar          ext4            rw,relatime     0 2
 ```
 Нас интересует строка c блочным устройством для монтирования корня файловой системы
-```/dev/mapper/vg--system-lvolroot /               ext4    errors=remount-ro 0       1
+```
+/dev/mapper/vg--system-lvolroot /               ext4    errors=remount-ro 0       1
 ```
 в первом случае и
-```/dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1
+```
+/dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1
 ```
 во втором.
 Посмотрим размеры логических томов
