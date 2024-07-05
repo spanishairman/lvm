@@ -330,7 +330,7 @@ Vagrant 2.2.18
 > При создании тома lvhome мы уже используем 100% оставшегося свободного места на **физическом устройстве**, т.е. тоже ~2Gb,
 > напомню, 50% места перед этим занял том lvvar 
 
-Создадим ФС на томе, смонтируем его во временную директорию и скопируем содержимое каталогов /var и /home на эти тома
+Создадим ФС на томе
 ```
     mkfs.ext4 /dev/mapper/vg--system-lvvar
     Debian12: mke2fs 1.47.0 (5-Feb-2023)
@@ -358,8 +358,54 @@ Vagrant 2.2.18
     Debian12: Creating journal (8192 blocks): done
     Debian12: Writing superblocks and filesystem accounting information: done 
     Debian12:
+```
+Смонтируем его во временную директорию
+```
     mount --mkdir /dev/mapper/vg--system-lvvar /lvvar
     mount --mkdir /dev/mapper/vg--system-lvhome /lvhome
+```
+И скопируем содержимое каталогов /var и /home на эти тома
+```
     rsync -a /var/ /lvvar
     rsync -a /home/ /lvhome
+```
+Отредактируем /etc/fstab для последующего монтирования тома lvvar
+```
+    sed -i 's/vg--system-lvolhome/vg--system-lvhome/' /etc/fstab
+    genfstab -L / | grep "lvvar" >> /etc/fstab
+```
+Создадим новый логический том lvroot для временного размещения корневой файловой системы
+```
+    lvcreate -l+100%FREE -n lvroot -y data
+    Debian12:   Wiping ext4 signature on /dev/data/lvroot.
+    Debian12:   Logical volume "lvroot" created.
+```
+Сделаем дамп действующей корневой файловой системы во временную
+```
+    dd if=/dev/mapper/vg--system-lvolroot of=/dev/mapper/data-lvroot bs=4M
+```
+Смонтируем том lvroot в каталог /lvroot
+```
+    mount --mkdir /dev/mapper/data-lvroot /lvroot
+```
+Исправим точку монтирования корневой ФС в файле fstab этой ФС
+```
+    sed -i 's/vg--system-lvolroot/data-lvroot/' /lvroot/etc/fstab
+    grep "data-lvroot" /lvroot/etc/fstab
+    Debian12: /dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1
+```
+Все приведённые выше действия выполнились автоматически с помощью ***config.vm.provision*** файла [Vagrantfile](Vagrantfile)
+
+Далее все действия производим в консоли виртуальной машины, после подключения к ней с помощью команды `vagrant ssh`
+```
+max@localhost:~/vagrant/vg3> vagrant ssh
+Linux debian12 6.1.0-21-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon May 20 18:30:50 2024 from 192.168.122.1
 ```
