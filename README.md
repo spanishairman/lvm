@@ -394,6 +394,7 @@ Vagrant 2.2.18
     grep "data-lvroot" /lvroot/etc/fstab
     Debian12: /dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1
 ```
+#### Уменьшение размера горневого раздела
 Все приведённые выше действия выполнились автоматически с помощью ***config.vm.provision*** файла [Vagrantfile](Vagrantfile)
 
 Далее все действия производим в консоли виртуальной машины, после подключения к ней с помощью команды `vagrant ssh`
@@ -459,7 +460,202 @@ UUID=4a52c237-1e75-40f0-944d-d712cd385901 /boot           ext2    defaults      
 # /dev/mapper/vg--system-lvvar UUID=9d104c46-c198-4823-88cf-98e0f7a28bab
 /dev/mapper/vg--system-lvvar    /lvvar          ext4            rw,relatime     0 2
 ```
-Нас интересует строка c блочным устройством для монтирования корня файловой системы - `/dev/mapper/vg--system-lvolroot /               ext4    errors=remount-ro 0       1`
-в первом случае и - `/dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1` во втором.
+Нас интересует строка c блочным устройством для монтирования корня файловой системы
+```/dev/mapper/vg--system-lvolroot /               ext4    errors=remount-ro 0       1
+```
+в первом случае и
+```/dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1
+```
+во втором.
+Посмотрим размеры логических томов
+```
+root@debian12:~# lvs
+  LV       VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  lvroot   data      -wi-ao---- <20,00g                                                    
+  lvhome   vg-system rwi-aor---   1,99g                                    100,00          
+  lvolhome vg-system -wi-ao----  16,71g                                                    
+  lvolroot vg-system -wi-ao----  18,62g                                                    
+  lvolswap vg-system -wi-ao----   3,72g                                                    
+  lvvar    vg-system rwi-aor---  <2,00g                                    100,00
+```
 
+Проверим точки монтирования устройств LVM
+```
+root@debian12:~# mount | grep "mapper"
+/dev/mapper/vg--system-lvolroot on / type ext4 (rw,relatime,errors=remount-ro)
+/dev/mapper/vg--system-lvolhome on /home type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvvar on /lvvar type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvhome on /lvhome type ext4 (rw,relatime)
+/dev/mapper/data-lvroot on /lvroot type ext4 (rw,relatime)
+```
+А также свободное место на файловых системах
+```
+root@debian12:~# df -h
+Файловая система                Размер Использовано  Дост Использовано% Cмонтировано в
+udev                              952M            0  952M            0% /dev
+tmpfs                             197M         1,2M  196M            1% /run
+/dev/mapper/vg--system-lvolroot    19G         5,0G   13G           29% /
+tmpfs                             984M            0  984M            0% /dev/shm
+tmpfs                             5,0M            0  5,0M            0% /run/lock
+/dev/vda1                         937M         117M  773M           14% /boot
+/dev/mapper/vg--system-lvolhome    17G          13M   16G            1% /home
+tmpfs                             197M          60K  197M            1% /run/user/113
+tmpfs                             197M          52K  197M            1% /run/user/1000
+/dev/mapper/vg--system-lvvar      2,0G         406M  1,5G           22% /lvvar
+/dev/mapper/vg--system-lvhome     2,0G          13M  1,8G            1% /lvhome
+/dev/mapper/data-lvroot            19G         5,0G   13G           29% /lvroot
+```
+Переходим во временное окружение __chroot__
+```
+root@debian12:~# for i in /proc/ /sys/ /dev/ /run/ /boot/; do mount --bind $i /lvroot/$i; done
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+root@debian12:~# chroot /lvroot/
+```
+Сохраняем копию конфигурационного файла загрузчика
+```
+root@debian12:/# cp -p /boot/grub/grub.cfg /boot/grub/grub.cfg.bk
+```
+Генерируем новый конфиг из временного окружения
+```
+root@debian12:/# grub-mkconfig -o /boot/grub/grub.cfg
+Generating grub configuration file ...
+Found background image: /usr/share/images/desktop-base/desktop-grub.png
+Found linux image: /boot/vmlinuz-6.1.0-21-amd64
+Found initrd image: /boot/initrd.img-6.1.0-21-amd64
+Found linux image: /boot/vmlinuz-6.1.0-18-amd64
+Found initrd image: /boot/initrd.img-6.1.0-18-amd64
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+done
+```
+Проверяем, что в новом файле конфигурации __Grub__ пути к устройству с корневой файловой системой обновились
+```
+root@debian12:/# grep "mapper" /boot/grub/grub.cfg
+        linux   /vmlinuz-6.1.0-21-amd64 root=/dev/mapper/data-lvroot ro  quiet
+                linux   /vmlinuz-6.1.0-21-amd64 root=/dev/mapper/data-lvroot ro  quiet
+                linux   /vmlinuz-6.1.0-21-amd64 root=/dev/mapper/data-lvroot ro single 
+                linux   /vmlinuz-6.1.0-18-amd64 root=/dev/mapper/data-lvroot ro  quiet
+                linux   /vmlinuz-6.1.0-18-amd64 root=/dev/mapper/data-lvroot ro single
+```
+Выходим из окружения __chroot__ и перезагружаемся
+```
+root@debian12:/# exit
+exit
+root@debian12:~# reboot
+```
+После перезагрузки, логинимся и проверяем точки монтирования системы
+```
+root@debian12:~# mount | grep "mapper"
+/dev/mapper/data-lvroot on / type ext4 (rw,relatime,errors=remount-ro)
+/dev/mapper/vg--system-lvhome on /home type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvvar on /lvvar type ext4 (rw,relatime)
+```
+Видим, что мы загрузились с временной корневой ФС. Так как основная корневая ФС сейчас не смонтирована, куменьшим её до 16Gb
+```
+root@debian12:~# e2fsck -f /dev/mapper/vg--system-lvolroot
+e2fsck 1.47.0 (5-Feb-2023)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/mapper/vg--system-lvolroot: 169978/1220608 files (0.2% non-contiguous), 1420720/4882432 blocks
+root@debian12:~# resize2fs /dev/mapper/vg--system-lvolroot 16G
+resize2fs 1.47.0 (5-Feb-2023)
+Resizing the filesystem on /dev/mapper/vg--system-lvolroot to 4194304 (4k) blocks.
+The filesystem on /dev/mapper/vg--system-lvolroot is now 4194304 (4k) blocks long.
+```
+Теперь можно уменьшит размер логического тома корневой файловой системы
+```
+root@debian12:~# lvreduce -y -L 16G /dev/mapper/vg--system-lvolroot
+  WARNING: Reducing active logical volume to 16,00 GiB.
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+  Size of logical volume vg-system/lvolroot changed from 18,62 GiB (4768 extents) to 16,00 GiB (4096 extents).
+  Logical volume vg-system/lvolroot successfully resized.
 
+```
+Вернём оригинальный конфиг __Grub__ из резервной копии
+```
+root@debian12:~# mv /boot/grub/grub.cfg.bk /boot/grub/grub.cfg
+```
+Проверим пути
+```
+root@debian12:~# grep "mapper" /boot/grub/grub.cfg
+        linux   /vmlinuz-6.1.0-21-amd64 root=/dev/mapper/vg--system-lvolroot ro  quiet
+                linux   /vmlinuz-6.1.0-21-amd64 root=/dev/mapper/vg--system-lvolroot ro  quiet
+                linux   /vmlinuz-6.1.0-21-amd64 root=/dev/mapper/vg--system-lvolroot ro single 
+                linux   /vmlinuz-6.1.0-18-amd64 root=/dev/mapper/vg--system-lvolroot ro  quiet
+                linux   /vmlinuz-6.1.0-18-amd64 root=/dev/mapper/vg--system-lvolroot ro single 
+```
+Перезагружаемся обратно в основную корневую ФС
+```
+root@debian12:~# reboot 
+Broadcast message from root@debian12 on pts/1 (Fri 2024-07-05 10:05:10 MSK):
+The system will reboot now!
+```
+Логинимся и проверяем точки монтирования
+```
+root@debian12:~# Connection to 192.168.121.10 closed by remote host.
+Connection to 192.168.121.10 closed.
+max@localhost:~/vagrant/vg3> vagrant ssh
+Linux debian12 6.1.0-21-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Fri Jul  5 09:58:56 2024 from 192.168.121.1
+vagrant@debian12:~$ sudo -i
+root@debian12:~# mount | grep "mapper"
+/dev/mapper/vg--system-lvolroot on / type ext4 (rw,relatime,errors=remount-ro)
+/dev/mapper/vg--system-lvhome on /home type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvvar on /lvvar type ext4 (rw,relatime)
+```
+Размеры логических томов
+```
+root@debian12:~# lvs
+  LV       VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  lvroot   data      -wi-a----- <20,00g                                                    
+  lvhome   vg-system rwi-aor---   1,99g                                    100,00          
+  lvolhome vg-system -wi-a-----  16,71g                                                    
+  lvolroot vg-system -wi-ao----  16,00g                                                    
+  lvolswap vg-system -wi-ao----   3,72g                                                    
+  lvvar    vg-system rwi-aor---  <2,00g                                    100,00          
+```
+Размеры файловых систем
+```
+root@debian12:~# df -h
+Файловая система                Размер Использовано  Дост Использовано% Cмонтировано в
+udev                              952M            0  952M            0% /dev
+tmpfs                             197M         1,2M  196M            1% /run
+/dev/mapper/vg--system-lvolroot    16G         5,0G  9,9G           34% /
+tmpfs                             984M            0  984M            0% /dev/shm
+tmpfs                             5,0M            0  5,0M            0% /run/lock
+/dev/vda1                         937M         117M  773M           14% /boot
+/dev/mapper/vg--system-lvhome     2,0G          13M  1,8G            1% /home
+/dev/mapper/vg--system-lvvar      2,0G         406M  1,5G           22% /lvvar
+tmpfs                             197M          60K  197M            1% /run/user/113
+tmpfs                             197M          52K  197M            1% /run/user/1000
+```
+Видим, что размер логического тома __lvolroot__ и файловой системы уменьшились до 16Gb. Готово! :+1:
+
+К данной работе прилагаю также запись консоли. Для того, чтобы воспроизвести выполненные действия, 
+необходимо скачать файлы [screenrecord-2024-07-05.script](screenrecord-2024-07-05.script) и [screenrecord-2024-07-05.time](screenrecord-2024-07-05.time), 
+после чего выполнить в каталоге с загруженными файлами команду
+```
+scriptreplay ./screenrecord-2024-06-07.time ./screenrecord-2024-06-07.script
+```
+
+Спасибо за прочтение! :potted_plant:

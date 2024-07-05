@@ -1,0 +1,619 @@
+Script started on 2024-07-05 09:54:38+03:00 [TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="169" LINES="55"]
+7]2;max@localhost.localdomain:~/vagrant/vg3]1;localhost.localdomain8max@localhost:~/vagrant/vg3> vagrant up
+[0mBringing machine 'Debian12' up with 'libvirt' provider...[0m
+[1;33m==> Debian12: No version detected for /home/max/vagrant/images/debian12, using timestamp to watch for modifications. Consider
+==> Debian12: generating a local metadata for the box with a version to allow better handling.
+==> Debian12: See https://www.vagrantup.com/docs/boxes/format#box-metadata for further details.[0m
+[1m==> Debian12: Creating image (snapshot of base box volume).[0m
+[1m==> Debian12: Creating domain with the following settings...[0m
+[1m==> Debian12:  -- Name:              vg3_Debian12[0m
+[1m==> Debian12:  -- Title:             Debian12[0m
+[1m==> Debian12:  -- Description:       Виртуальная машина на базе дистрибутива Debian Linux[0m
+[1m==> Debian12:  -- Domain type:       kvm[0m
+[1m==> Debian12:  -- Cpus:              2[0m
+[1m==> Debian12:  -- Feature:           acpi[0m
+[1m==> Debian12:  -- Feature:           apic[0m
+[1m==> Debian12:  -- Feature:           pae[0m
+[1m==> Debian12:  -- Clock offset:      utc[0m
+[1m==> Debian12:  -- Memory:            2048M[0m
+[1m==> Debian12:  -- Management MAC:    52:54:00:27:28:83[0m
+[1m==> Debian12:  -- Loader:            [0m
+[1m==> Debian12:  -- Nvram:             [0m
+[1m==> Debian12:  -- Base box:          /home/max/vagrant/images/debian12[0m
+[1m==> Debian12:  -- Storage pool:      images[0m
+[1m==> Debian12:  -- Image(vda):        /home/max/libvirt/images/vg3_Debian12.img, virtio, 40G[0m
+[1m==> Debian12:  -- Disk driver opts:  cache='default'[0m
+[1m==> Debian12:  -- Kernel:            [0m
+[1m==> Debian12:  -- Initrd:            [0m
+[1m==> Debian12:  -- Graphics Type:     vnc[0m
+[1m==> Debian12:  -- Graphics Port:     -1[0m
+[1m==> Debian12:  -- Graphics IP:       127.0.0.1[0m
+[1m==> Debian12:  -- Graphics Password: Not defined[0m
+[1m==> Debian12:  -- Video Type:        cirrus[0m
+[1m==> Debian12:  -- Video VRAM:        16384[0m
+[1m==> Debian12:  -- Video 3D accel:    false[0m
+[1m==> Debian12:  -- Sound Type:        [0m
+[1m==> Debian12:  -- Keymap:            en-us[0m
+[1m==> Debian12:  -- TPM Backend:       passthrough[0m
+[1m==> Debian12:  -- TPM Path:          [0m
+[1m==> Debian12:  -- Disks:         vdb(qcow2, virtio, 20G), vdc(qcow2, virtio, 4G), vdd(qcow2, virtio, 4G), vde(qcow2, virtio, 1G), vdf(qcow2, virtio, 1G)[0m
+[1m==> Debian12:  -- Disk(vdb):     /home/max/libvirt/images/vg3_Debian12-vdb.qcow2[0m
+[1m==> Debian12:  -- Disk(vdc):     /home/max/libvirt/images/vg3_Debian12-vdc.qcow2[0m
+[1m==> Debian12:  -- Disk(vdd):     /home/max/libvirt/images/vg3_Debian12-vdd.qcow2[0m
+[1m==> Debian12:  -- Disk(vde):     /home/max/libvirt/images/vg3_Debian12-vde.qcow2[0m
+[1m==> Debian12:  -- Disk(vdf):     /home/max/libvirt/images/vg3_Debian12-vdf.qcow2[0m
+[1m==> Debian12:  -- INPUT:             type=mouse, bus=ps2[0m
+[1m==> Debian12: Creating shared folders metadata...[0m
+[1m==> Debian12: Starting domain.[0m
+[1m==> Debian12: Waiting for domain to get an IP address...[0m
+[1m==> Debian12: Waiting for machine to boot. This may take a few minutes...[0m
+[0m    Debian12: SSH address: 192.168.121.10:22[0m
+[0m    Debian12: SSH username: vagrant[0m
+[0m    Debian12: SSH auth method: private key[0m
+[0m    Debian12: Warning: Host unreachable. Retrying...[0m
+[0m    Debian12: Warning: Host unreachable. Retrying...[0m
+[0m    Debian12: 
+    Debian12: Vagrant insecure key detected. Vagrant will automatically replace
+    Debian12: this with a newly generated keypair for better security.[0m
+[0m    Debian12: 
+    Debian12: Inserting generated public key within guest...[0m
+[0m    Debian12: Removing insecure key from the guest if it's present...[0m
+[0m    Debian12: Key inserted! Disconnecting and reconnecting using new SSH key...[0m
+[1m==> Debian12: Machine booted and ready![0m
+[1m==> Debian12: Running provisioner: shell...[0m
+[0m    Debian12: Running: inline script[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Установим пакет rsync[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;31m    Debian12: [0m
+[0;31m    Debian12: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.[0m
+[0;31m    Debian12: [0m
+[0;32m    Debian12: Чтение списков пакетов…[0m
+[0;32m    Debian12: Построение дерева зависимостей…[0m
+[0;32m    Debian12: Чтение информации о состоянии…[0m
+[0;32m    Debian12: Предлагаемые пакеты:[0m
+[0;32m    Debian12:   pacman-package-manager python3-braceexpand[0m
+[0;32m    Debian12: Следующие НОВЫЕ пакеты будут установлены:[0m
+[0;32m    Debian12:   arch-install-scripts rsync[0m
+[0;32m    Debian12: Обновлено 0 пакетов, установлено 2 новых пакетов, для удаления отмечено 0 пакетов, и 0 пакетов не обновлено.[0m
+[0;32m    Debian12: Необходимо скачать 434 kB архивов.[0m
+[0;32m    Debian12: После данной операции объём занятого дискового пространства возрастёт на 871 kB.[0m
+[0;32m    Debian12: Пол:1 http://deb.debian.org/debian bookworm/main amd64 rsync amd64 3.2.7-1 [417 kB][0m
+[0;32m    Debian12: Пол:2 http://deb.debian.org/debian bookworm/main amd64 arch-install-scripts all 28-1 [16,2 kB][0m
+[0;31m    Debian12: dpkg-preconfigure: не удалось заново открыть stdin: No such file or directory[0m
+[0;32m    Debian12: Получено 434 kB за 8с (51,1 kB/s)[0m
+[0;32m    Debian12: Выбор ранее не выбранного пакета rsync.[0m
+[0;32m    Debian12: (Чтение базы данных … (Чтение базы данных … 5%(Чтение базы данных … 10%(Чтение базы данных … 15%(Чтение базы данных … 20%(Чтение базы данных … 25%(Чтение базы данных … 30%(Чтение базы данных … 35%(Чтение базы данных … 40%(Чтение базы данных … 45%(Чтение базы данных … 50%(Чтение базы данных … 55%(Чтение базы данных … 60%(Чтение базы данных … 65%(Чтение базы данных … 70%(Чтение базы данных … 75%(Чтение базы данных … 80%(Чтение базы данных … 85%(Чтение базы данных … 90%(Чтение базы данных … 95%(Чтение базы данных … 100%(Чтение базы данных … на данный момент установлено 155424 файла и каталога.)[0m
+[0;32m    Debian12: Подготовка к распаковке …/rsync_3.2.7-1_amd64.deb …[0m
+[0;32m    Debian12: Распаковывается rsync (3.2.7-1) …[0m
+[0;32m    Debian12: Выбор ранее не выбранного пакета arch-install-scripts.[0m
+[0;32m    Debian12: Подготовка к распаковке …/arch-install-scripts_28-1_all.deb …[0m
+[0;32m    Debian12: Распаковывается arch-install-scripts (28-1) …[0m
+[0;32m    Debian12: Настраивается пакет arch-install-scripts (28-1) …[0m
+[0;32m    Debian12: Настраивается пакет rsync (3.2.7-1) …[0m
+[0;32m    Debian12: rsync.service is a disabled or a static unit, not starting it.[0m
+[0;32m    Debian12: Обрабатываются триггеры для man-db (2.11.2-2) …[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим первый физический том[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Physical volume "/dev/vdb" successfully created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим группу томов[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Volume group "data" successfully created[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Посмотрим информацию о только что созданной группе томов[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   --- Volume group ---[0m
+[0;32m    Debian12:   VG Name               data[0m
+[0;32m    Debian12:   System ID[0m
+[0;32m    Debian12:   Format                lvm2[0m
+[0;32m    Debian12:   Metadata Areas        1[0m
+[0;32m    Debian12:   Metadata Sequence No  1[0m
+[0;32m    Debian12:   VG Access             read/write[0m
+[0;32m    Debian12:   VG Status             resizable[0m
+[0;32m    Debian12:   MAX LV                0[0m
+[0;32m    Debian12:   Cur LV                0[0m
+[0;32m    Debian12:   Open LV               0[0m
+[0;32m    Debian12:   Max PV                0[0m
+[0;32m    Debian12:   Cur PV                1[0m
+[0;32m    Debian12:   Act PV                1[0m
+[0;32m    Debian12:   VG Size               <20,00 GiB[0m
+[0;32m    Debian12:   PE Size               4,00 MiB[0m
+[0;32m    Debian12:   Total PE              5119[0m
+[0;32m    Debian12:   Alloc PE / Size       0 / 0[0m
+[0;32m    Debian12:   Free  PE / Size       5119 / <20,00 GiB[0m
+[0;32m    Debian12:   VG UUID               CoAH86-5iyF-iXqW-0n56-w23v-5VWC-VKm013[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Выведем информацию о том, какие диски входит в VG[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   PV Name               /dev/vdb[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим первый логический том[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Logical volume "large" created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим второй логический том[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Logical volume "small" created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим файловую систему на первом томе[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;31m    Debian12: mke2fs 1.47.0 (5-Feb-2023)[0m
+[0;32m    Debian12: Discarding device blocks:       0/2097152               done[0m
+[0;32m    Debian12: Creating filesystem with 2097152 4k blocks and 524288 inodes[0m
+[0;32m    Debian12: Filesystem UUID: 4ec24556-d842-438c-8d46-4940d29bac9a[0m
+[0;32m    Debian12: Superblock backups stored on blocks:[0m
+[0;32m    Debian12: 	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: Allocating group tables:  0/64     done[0m
+[0;32m    Debian12: Writing inode tables:  0/64     done[0m
+[0;32m    Debian12: Creating journal (16384 blocks): done[0m
+[0;32m    Debian12: Writing superblocks and filesystem accounting information:  0/64     done[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Смонтируем том[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим второй физический том[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Physical volume "/dev/vdc" successfully created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Расширим группу томов за счёт второго физического тома[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Volume group "data" successfully extended[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Посмотрим информацию о группе томов[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   --- Volume group ---[0m
+[0;32m    Debian12:   VG Name               data[0m
+[0;32m    Debian12:   System ID[0m
+[0;32m    Debian12:   Format                lvm2[0m
+[0;32m    Debian12:   Metadata Areas        2[0m
+[0;32m    Debian12:   Metadata Sequence No  4[0m
+[0;32m    Debian12:   VG Access             read/write[0m
+[0;32m    Debian12:   VG Status             resizable[0m
+[0;32m    Debian12:   MAX LV                0[0m
+[0;32m    Debian12:   Cur LV                2[0m
+[0;32m    Debian12:   Open LV               1[0m
+[0;32m    Debian12:   Max PV                0[0m
+[0;32m    Debian12:   Cur PV                2[0m
+[0;32m    Debian12:   Act PV                2[0m
+[0;32m    Debian12:   VG Size               23,99 GiB[0m
+[0;32m    Debian12:   PE Size               4,00 MiB[0m
+[0;32m    Debian12:   Total PE              6142[0m
+[0;32m    Debian12:   Alloc PE / Size       2073 / <8,10 GiB[0m
+[0;32m    Debian12:   Free  PE / Size       4069 / 15,89 GiB[0m
+[0;32m    Debian12:   VG UUID               CoAH86-5iyF-iXqW-0n56-w23v-5VWC-VKm013[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Выведем информацию о том, какие диски входит в VG[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   PV Name               /dev/vdb[0m
+[0;32m    Debian12:   PV Name               /dev/vdc[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Информация о логическом томе[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   --- Logical volume ---[0m
+[0;32m    Debian12:   LV Path                /dev/data/large[0m
+[0;32m    Debian12:   LV Name                large[0m
+[0;32m    Debian12:   VG Name                data[0m
+[0;32m    Debian12:   LV UUID                DOOvWu-QPH2-JQjA-iSZE-8U8w-WA9Z-XnAXKE[0m
+[0;32m    Debian12:   LV Write Access        read/write[0m
+[0;32m    Debian12:   LV Creation host, time debian12, 2024-07-05 09:55:30 +0300[0m
+[0;32m    Debian12:   LV Status              available[0m
+[0;32m    Debian12:   # open                 1[0m
+[0;32m    Debian12:   LV Size                8,00 GiB[0m
+[0;32m    Debian12:   Current LE             2048[0m
+[0;32m    Debian12:   Segments               1[0m
+[0;32m    Debian12:   Allocation             inherit[0m
+[0;32m    Debian12:   Read ahead sectors     auto[0m
+[0;32m    Debian12:   - currently set to     256[0m
+[0;32m    Debian12:   Block device           253:3[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Краткий вывод информации о группах томов и о логических томах[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   VG        #PV #LV #SN Attr   VSize  VFree[0m
+[0;32m    Debian12:   data        2   2   0 wz--n- 23,99g 15,89g[0m
+[0;32m    Debian12:   vg-system   1   3   0 wz--n- 39,06g     0[0m
+[0;32m    Debian12:   LV       VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert[0m
+[0;32m    Debian12:   large    data      -wi-ao----   8,00g[0m
+[0;32m    Debian12:   small    data      -wi-a----- 100,00m[0m
+[0;32m    Debian12:   lvolhome vg-system -wi-ao----  16,71g[0m
+[0;32m    Debian12:   lvolroot vg-system -wi-ao----  18,62g[0m
+[0;32m    Debian12:   lvolswap vg-system -wi-ao----   3,72g[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Информация о монтируемом томе в каталог /data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: /dev/mapper/data-large on /data type ext4 (rw,relatime)[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим большой файл размером 8Gb и проверим наличие места на диске[0m
+[0;32m    Debian12: dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress[0m
+[0;32m    Debian12: df -Th /data/[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;31m    Debian12: 654311424 bytes (654 MB, 624 MiB) copied, 1 s, 654 MB/s724566016 bytes (725 MB, 691 MiB) copied, 3 s, 276 MB/s963641344 bytes (964 MB, 919 MiB) copied, 3 s, 321 MB/s1580204032 bytes (1,6 GB, 1,5 GiB) copied, 4 s, 395 MB/s1636827136 bytes (1,6 GB, 1,5 GiB) copied, 5 s, 326 MB/s1707081728 bytes (1,7 GB, 1,6 GiB) copied, 6 s, 284 MB/s2197815296 bytes (2,2 GB, 2,0 GiB) copied, 7 s, 314 MB/s2384461824 bytes (2,4 GB, 2,2 GiB) copied, 8 s, 298 MB/s2580545536 bytes (2,6 GB, 2,4 GiB) copied, 9 s, 286 MB/s2982150144 bytes (3,0 GB, 2,8 GiB) copied, 10 s, 298 MB/s3420454912 bytes (3,4 GB, 3,2 GiB) copied, 11 s, 311 MB/s3641704448 bytes (3,6 GB, 3,4 GiB) copied, 12 s, 303 MB/s4177526784 bytes (4,2 GB, 3,9 GiB) copied, 13 s, 321 MB/s4481613824 bytes (4,5 GB, 4,2 GiB) copied, 14 s, 320 MB/s4508876800 bytes (4,5 GB, 4,2 GiB) copied, 15 s, 301 MB/s4949278720 bytes (4,9 GB, 4,6 GiB) copied, 16 s, 309 MB/s5025824768 bytes (5,0 GB, 4,7 GiB) copied, 17 s, 296 MB/s5517606912 bytes (5,5 GB, 5,1 GiB) copied, 18 s, 306 MB/s5748293632 bytes (5,7 GB, 5,4 GiB) copied, 19 s, 303 MB/s6379536384 bytes (6,4 GB, 5,9 GiB) copied, 20 s, 319 MB/s6469713920 bytes (6,5 GB, 6,0 GiB) copied, 22 s, 300 MB/s6585057280 bytes (6,6 GB, 6,1 GiB) copied, 22 s, 299 MB/s6983516160 bytes (7,0 GB, 6,5 GiB) copied, 23 s, 303 MB/s7321157632 bytes (7,3 GB, 6,8 GiB) copied, 24 s, 305 MB/s7548698624 bytes (7,5 GB, 7,0 GiB) copied, 25 s, 302 MB/s7855931392 bytes (7,9 GB, 7,3 GiB) copied, 26 s, 302 MB/s8231321600 bytes (8,2 GB, 7,7 GiB) copied, 28 s, 291 MB/s8232370176 bytes (8,2 GB, 7,7 GiB) copied, 28 s, 291 MB/s[0m
+[0;31m    Debian12: dd: ошибка записи '/data/test.log': На устройстве не осталось свободного места[0m
+[0;31m    Debian12: 7948+0 records in[0m
+[0;31m    Debian12: 7947+0 records out[0m
+[0;31m    Debian12: 8333492224 bytes (8,3 GB, 7,8 GiB) copied, 28,4922 s, 292 MB/s[0m
+[0;32m    Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в[0m
+[0;32m    Debian12: /dev/mapper/data-large ext4   7,8G         7,8G     0          100% /data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Расширим том large[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Size of logical volume data/large changed from 8,00 GiB (2048 extents) to 12,00 GiB (3072 extents).[0m
+[0;32m    Debian12:   Logical volume data/large successfully resized.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Выведем информацию о томе[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   LV    VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert[0m
+[0;32m    Debian12:   large data -wi-ao---- 12,00g[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: И о свободном месте на файловой системе[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в[0m
+[0;32m    Debian12: /dev/mapper/data-large ext4   7,8G         7,8G     0          100% /data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Увеличим размер фс[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;31m    Debian12: resize2fs 1.47.0 (5-Feb-2023)[0m
+[0;32m    Debian12: Filesystem at /dev/mapper/data-large is mounted on /data; on-line resizing required[0m
+[0;32m    Debian12: old_desc_blocks = 1, new_desc_blocks = 2[0m
+[0;32m    Debian12: The filesystem on /dev/mapper/data-large is now 3145728 (4k) blocks long.[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Снова выведем информацию о свободном месте[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в[0m
+[0;32m    Debian12: /dev/mapper/data-large ext4    12G         7,8G  3,4G           70% /data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Уменьшим файловую систему и том, на котором она создана[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;31m    Debian12: e2fsck 1.47.0 (5-Feb-2023)[0m
+[0;32m    Debian12: Pass 1: Checking inodes, blocks, and sizes[0m
+[0;32m    Debian12: Pass 2: Checking directory structure[0m
+[0;32m    Debian12: Pass 3: Checking directory connectivity[0m
+[0;32m    Debian12: Pass 4: Checking reference counts[0m
+[0;32m    Debian12: Pass 5: Checking group summary information[0m
+[0;32m    Debian12: /dev/mapper/data-large: 12/786432 files (0.0% non-contiguous), 2110529/3145728 blocks[0m
+[0;31m    Debian12: resize2fs 1.47.0 (5-Feb-2023)[0m
+[0;32m    Debian12: Resizing the filesystem on /dev/mapper/data-large to 2621440 (4k) blocks.[0m
+[0;32m    Debian12: The filesystem on /dev/mapper/data-large is now 2621440 (4k) blocks long.[0m
+[0;32m    Debian12: [0m
+[0;31m    Debian12:   WARNING: Reducing active logical volume to 10,00 GiB.[0m
+[0;31m    Debian12:   THIS MAY DESTROY YOUR DATA (filesystem etc.)[0m
+[0;32m    Debian12:   Size of logical volume data/large changed from 12,00 GiB (3072 extents) to 10,00 GiB (2560 extents).[0m
+[0;32m    Debian12:   Logical volume data/large successfully resized.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Снова смонтируем фс и сверим её размер и размер тома, на котором она создана[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в[0m
+[0;32m    Debian12: /dev/mapper/data-large ext4   9,8G         7,8G  1,6G           84% /data[0m
+[0;32m    Debian12:   LV    VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert[0m
+[0;32m    Debian12:   large data -wi-ao---- 10,00g[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим снимок тома large[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Logical volume "large-snap" created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Выведем содержимое /data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: итого 8138196[0m
+[0;32m    Debian12: drwx------ 2 root root      16384 июл  5 09:55 lost+found[0m
+[0;32m    Debian12: -rw-r--r-- 1 root root 8333492224 июл  5 09:55 test.log[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Удалим файл test.log и выведем содержимое /data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: итого 16[0m
+[0;32m    Debian12: drwx------ 2 root root 16384 июл  5 09:55 lost+found[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Отмонтируем /data и восстановим том large из снимка[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Merging of volume data/large-snap started.[0m
+[0;32m    Debian12:   data/large: Merged: 100,00%[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Снова смонтируем том и проверим содержимое /data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: итого 8138196[0m
+[0;32m    Debian12: drwx------ 2 root root      16384 июл  5 09:55 lost+found[0m
+[0;32m    Debian12: -rw-r--r-- 1 root root 8333492224 июл  5 09:55 test.log[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Удалим все логические тома в группе data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Logical volume "large" successfully removed.[0m
+[0;32m    Debian12:   Logical volume "small" successfully removed.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Удалим физический том из группы data[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Removed "/dev/vdc" from volume group "data"[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: ПЕРЕНОС КАТАЛОГОВ /VAR, /HOME НА LVM RAID[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим новые физические тома для логических томов lvvar и lvhome[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Physical volume "/dev/vdd" successfully created.[0m
+[0;32m    Debian12:   Physical volume "/dev/vde" successfully created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Расширим системную группу томов vg-system, здесь устройства vdc и vdd будут использоваться для создания массива, а vde для возможности делать снимки томов[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Volume group "vg-system" successfully extended[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим логические тома lvvar и lvhome тип RAID1 на физических устройствах /dev/vdc и /dev/vdd[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Logical volume "lvvar" created.[0m
+[0;32m    Debian12:   Logical volume "lvhome" created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим ФС на томе, смонтируем его во временную директорию и скопируем содержимое каталогов /var и /home на эти тома[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;31m    Debian12: mke2fs 1.47.0 (5-Feb-2023)[0m
+[0;32m    Debian12: Discarding device blocks:      0/523264             done[0m
+[0;32m    Debian12: Creating filesystem with 523264 4k blocks and 130816 inodes[0m
+[0;32m    Debian12: Filesystem UUID: 9d104c46-c198-4823-88cf-98e0f7a28bab[0m
+[0;32m    Debian12: Superblock backups stored on blocks:[0m
+[0;32m    Debian12: 	32768, 98304, 163840, 229376, 294912[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: Allocating group tables:  0/16     done[0m
+[0;32m    Debian12: Writing inode tables:  0/16     done[0m
+[0;32m    Debian12: Creating journal (8192 blocks): done[0m
+[0;32m    Debian12: Writing superblocks and filesystem accounting information:  0/16     done[0m
+[0;32m    Debian12: [0m
+[0;31m    Debian12: mke2fs 1.47.0 (5-Feb-2023)[0m
+[0;32m    Debian12: Discarding device blocks:      0/522240             done[0m
+[0;32m    Debian12: Creating filesystem with 522240 4k blocks and 130560 inodes[0m
+[0;32m    Debian12: Filesystem UUID: 1dd36192-f8e1-4d90-9cd3-d1f2b63a6b37[0m
+[0;32m    Debian12: Superblock backups stored on blocks:[0m
+[0;32m    Debian12: 	32768, 98304, 163840, 229376, 294912[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: Allocating group tables:  0/16     done[0m
+[0;32m    Debian12: Writing inode tables:  0/16     done[0m
+[0;32m    Debian12: Creating journal (8192 blocks): done[0m
+[0;32m    Debian12: Writing superblocks and filesystem accounting information:  0/16     done[0m
+[0;32m    Debian12: [0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Отредактируем /etc/fstab для последующего монтирования тома lvvar[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Создадим новый логический том lvroot для временного размещения корневой файловой системы[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12:   Wiping ext4 signature on /dev/data/lvroot.[0m
+[0;32m    Debian12:   Logical volume "lvroot" created.[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Сделаем дамп действующей корневой файловой системы во временную[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;31m    Debian12: 4768+0 records in[0m
+[0;31m    Debian12: 4768+0 records out[0m
+[0;31m    Debian12: 19998441472 bytes (20 GB, 19 GiB) copied, 126,634 s, 158 MB/s[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Смонтируем том lvroot в каталог /lvroot[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: Исправим точку монтирования корневой ФС в файле fstab этой ФС[0m
+[0;32m    Debian12: *************************************************************[0m
+[0;32m    Debian12: /dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1[0m
+7]2;max@localhost.localdomain:~/vagrant/vg3]1;localhost.localdomain8max@localhost:~/vagrant/vg3> vagrant ssh
+Linux debian12 6.1.0-21-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon May 20 18:30:50 2024 from 192.168.122.1
+[?2004h]0;vagrant@debian12: ~[01;32mvagrant@debian12[00m:[01;34m~[00m$ sudo -i
+[?2004l[?2004hroot@debian12:~# lvs
+[?2004l  LV       VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  lvroot   data      -wi-ao---- <20,00g                                                    
+  lvhome   vg-system rwi-aor---   1,99g                                    100,00          
+  lvolhome vg-system -wi-ao----  16,71g                                                    
+  lvolroot vg-system -wi-ao----  18,62g                                                    
+  lvolswap vg-system -wi-ao----   3,72g                                                    
+  lvvar    vg-system rwi-aor---  <2,00g                                    100,00          
+[?2004hroot@debian12:~# cat /etc/fstab 
+[?2004l# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+/dev/mapper/vg--system-lvolroot /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/vda1 during installation
+UUID=4a52c237-1e75-40f0-944d-d712cd385901 /boot           ext2    defaults        0       2
+/dev/mapper/vg--system-lvhome /home           ext4    defaults        0       2
+/dev/mapper/vg--system-lvolswap none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+#VAGRANT-BEGIN
+# The contents below are automatically generated by Vagrant. Do not modify.
+#VAGRANT-END
+# /dev/mapper/vg--system-lvvar UUID=9d104c46-c198-4823-88cf-98e0f7a28bab
+/dev/mapper/vg--system-lvvar	/lvvar    	ext4      	rw,relatime	0 2
+[?2004hroot@debian12:~# cat /lvroot/etc/fstab 
+[?2004l# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+/dev/mapper/data-lvroot /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/vda1 during installation
+UUID=4a52c237-1e75-40f0-944d-d712cd385901 /boot           ext2    defaults        0       2
+/dev/mapper/vg--system-lvhome /home           ext4    defaults        0       2
+/dev/mapper/vg--system-lvolswap none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+#VAGRANT-BEGIN
+# The contents below are automatically generated by Vagrant. Do not modify.
+#VAGRANT-END
+# /dev/mapper/vg--system-lvvar UUID=9d104c46-c198-4823-88cf-98e0f7a28bab
+/dev/mapper/vg--system-lvvar	/lvvar    	ext4      	rw,relatime	0 2
+[?2004hroot@debian12:~# lvs
+[?2004l  LV       VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  lvroot   data      -wi-ao---- <20,00g                                                    
+  lvhome   vg-system rwi-aor---   1,99g                                    100,00          
+  lvolhome vg-system -wi-ao----  16,71g                                                    
+  lvolroot vg-system -wi-ao----  18,62g                                                    
+  lvolswap vg-system -wi-ao----   3,72g                                                    
+  lvvar    vg-system rwi-aor---  <2,00g                                    100,00          
+[?2004hroot@debian12:~# mount "[K| grep "mapper"
+[?2004l/dev/mapper/vg--system-lvolroot on / type ext4 (rw,relatime,errors=remount-ro)
+/dev/mapper/vg--system-lvolhome on /home type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvvar on /lvvar type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvhome on /lvhome type ext4 (rw,relatime)
+/dev/mapper/data-lvroot on /lvroot type ext4 (rw,relatime)
+[?2004hroot@debian12:~# df -h
+[?2004lФайловая система                Размер Использовано  Дост Использовано% Cмонтировано в
+udev                              952M            0  952M            0% /dev
+tmpfs                             197M         1,2M  196M            1% /run
+/dev/mapper/vg--system-lvolroot    19G         5,0G   13G           29% /
+tmpfs                             984M            0  984M            0% /dev/shm
+tmpfs                             5,0M            0  5,0M            0% /run/lock
+/dev/vda1                         937M         117M  773M           14% /boot
+/dev/mapper/vg--system-lvolhome    17G          13M   16G            1% /home
+tmpfs                             197M          60K  197M            1% /run/user/113
+tmpfs                             197M          52K  197M            1% /run/user/1000
+/dev/mapper/vg--system-lvvar      2,0G         406M  1,5G           22% /lvvar
+/dev/mapper/vg--system-lvhome     2,0G          13M  1,8G            1% /lvhome
+/dev/mapper/data-lvroot            19G         5,0G   13G           29% /lvroot
+[?2004hroot@debian12:~# [7mfor i in /proc/ /sys/ /dev/ /run/ /boot/; do mount --bind $i /lvroot/$i; done[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cfor i in /proc/ /sys/ /dev/ /run/ /boot/; do mount --bind $i /lvroot/$i; done
+[?2004lmount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+[?2004hroot@debian12:~# chroot /lvroot/
+[?2004l[?2004hroot@debian12:/# [7mcp -p /boot/grub/grub.cfg /boot/grub/grub.cfg.bk[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccp -p /boot/grub/grub.cfg /boot/grub/grub.cfg.bk
+[?2004l[?2004hroot@debian12:/# [7mgrub-mkconfig -o /boot/grub/grub.cfg[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrub-mkconfig -o /boot/grub/grub.cfg
+[?2004lGenerating grub configuration file ...
+Found background image: /usr/share/images/desktop-base/desktop-grub.png
+Found linux image: /boot/vmlinuz-6.1.0-21-amd64
+Found initrd image: /boot/initrd.img-6.1.0-21-amd64
+Found linux image: /boot/vmlinuz-6.1.0-18-amd64
+Found initrd image: /boot/initrd.img-6.1.0-18-amd64
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+done
+[?2004hroot@debian12:/# [7mgrep "mapper" /boot/grub/grub.cfg[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep "mapper" /boot/grub/grub.cfg
+[?2004l	linux	/vmlinuz-6.1.0-21-amd64 root=/dev/mapper/data-lvroot ro  quiet
+		linux	/vmlinuz-6.1.0-21-amd64 root=/dev/mapper/data-lvroot ro  quiet
+		linux	/vmlinuz-6.1.0-21-amd64 root=/dev/mapper/data-lvroot ro single 
+		linux	/vmlinuz-6.1.0-18-amd64 root=/dev/mapper/data-lvroot ro  quiet
+		linux	/vmlinuz-6.1.0-18-amd64 root=/dev/mapper/data-lvroot ro single 
+[?2004hroot@debian12:/# exit
+[?2004lexit
+[?2004hroot@debian12:~# reboot 
+[?2004l
+Broadcast message from root@debian12 on pts/1 (Fri 2024-07-05 10:02:58 MSK):
+
+The system will reboot now!
+
+[?2004hroot@debian12:~# Connection to 192.168.121.10 closed by remote host.
+Connection to 192.168.121.10 closed.
+7]2;max@localhost.localdomain:~/vagrant/vg3]1;localhost.localdomain8max@localhost:~/vagrant/vg3> vagrant ssh
+Linux debian12 6.1.0-21-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon May 20 18:30:50 2024 from 192.168.122.1
+[?2004h]0;vagrant@debian12: ~[01;32mvagrant@debian12[00m:[01;34m~[00m$ sudo -i
+[?2004l[?2004hroot@debian12:~# [7mmount | grep "mapper"[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmount | grep "mapper"
+[?2004l/dev/mapper/data-lvroot on / type ext4 (rw,relatime,errors=remount-ro)
+/dev/mapper/vg--system-lvhome on /home type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvvar on /lvvar type ext4 (rw,relatime)
+[?2004hroot@debian12:~# [7me2fsck -f /dev/mapper/vg--system-lvolroot[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce2fsck -f /dev/mapper/vg--system-lvolroot
+[?2004le2fsck 1.47.0 (5-Feb-2023)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/dev/mapper/vg--system-lvolroot: 169978/1220608 files (0.2% non-contiguous), 1420720/4882432 blocks
+[?2004hroot@debian12:~# [7mresize2fs /dev/mapper/vg--system-lvolroot 16G[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cresize2fs /dev/mapper/vg--system-lvolroot 16G
+[?2004lresize2fs 1.47.0 (5-Feb-2023)
+Resizing the filesystem on /dev/mapper/vg--system-lvolroot to 4194304 (4k) blocks.
+The filesystem on /dev/mapper/vg--system-lvolroot is now 4194304 (4k) blocks long.
+
+[?2004hroot@debian12:~# [7mlvreduce -y -L 16G /dev/mapper/vg--system-lvolroot[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clvreduce -y -L 16G /dev/mapper/vg--system-lvolroot
+[?2004l  WARNING: Reducing active logical volume to 16,00 GiB.
+  THIS MAY DESTROY YOUR DATA (filesystem etc.)
+  Size of logical volume vg-system/lvolroot changed from 18,62 GiB (4768 extents) to 16,00 GiB (4096 extents).
+  Logical volume vg-system/lvolroot successfully resized.
+[?2004hroot@debian12:~# [7mmv /boot/grub/grub.cfg.bk /boot/grub/grub.cfg[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmv /boot/grub/grub.cfg.bk /boot/grub/grub.cfg
+[?2004l[?2004hroot@debian12:~# [7mgrep "mapper" /boot/grub/grub.cfg[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgrep "mapper" /boot/grub/grub.cfg
+[?2004l	linux	/vmlinuz-6.1.0-21-amd64 root=/dev/mapper/vg--system-lvolroot ro  quiet
+		linux	/vmlinuz-6.1.0-21-amd64 root=/dev/mapper/vg--system-lvolroot ro  quiet
+		linux	/vmlinuz-6.1.0-21-amd64 root=/dev/mapper/vg--system-lvolroot ro single 
+		linux	/vmlinuz-6.1.0-18-amd64 root=/dev/mapper/vg--system-lvolroot ro  quiet
+		linux	/vmlinuz-6.1.0-18-amd64 root=/dev/mapper/vg--system-lvolroot ro single 
+[?2004hroot@debian12:~# reboot 
+[?2004l
+Broadcast message from root@debian12 on pts/1 (Fri 2024-07-05 10:05:10 MSK):
+
+The system will reboot now!
+
+[?2004hroot@debian12:~# Connection to 192.168.121.10 closed by remote host.
+Connection to 192.168.121.10 closed.
+7]2;max@localhost.localdomain:~/vagrant/vg3]1;localhost.localdomain8max@localhost:~/vagrant/vg3> vagrant ssh
+Linux debian12 6.1.0-21-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.90-1 (2024-05-03) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Fri Jul  5 09:58:56 2024 from 192.168.121.1
+[?2004h]0;vagrant@debian12: ~[01;32mvagrant@debian12[00m:[01;34m~[00m$ sudo -i
+[?2004l[?2004hroot@debian12:~# mount | grep "mapper":[K
+[?2004l/dev/mapper/vg--system-lvolroot on / type ext4 (rw,relatime,errors=remount-ro)
+/dev/mapper/vg--system-lvhome on /home type ext4 (rw,relatime)
+/dev/mapper/vg--system-lvvar on /lvvar type ext4 (rw,relatime)
+[?2004hroot@debian12:~# lvs
+[?2004l  LV       VG        Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  lvroot   data      -wi-a----- <20,00g                                                    
+  lvhome   vg-system rwi-aor---   1,99g                                    100,00          
+  lvolhome vg-system -wi-a-----  16,71g                                                    
+  lvolroot vg-system -wi-ao----  16,00g                                                    
+  lvolswap vg-system -wi-ao----   3,72g                                                    
+  lvvar    vg-system rwi-aor---  <2,00g                                    100,00          
+[?2004hroot@debian12:~# df -h
+[?2004lФайловая система                Размер Использовано  Дост Использовано% Cмонтировано в
+udev                              952M            0  952M            0% /dev
+tmpfs                             197M         1,2M  196M            1% /run
+/dev/mapper/vg--system-lvolroot    16G         5,0G  9,9G           34% /
+tmpfs                             984M            0  984M            0% /dev/shm
+tmpfs                             5,0M            0  5,0M            0% /run/lock
+/dev/vda1                         937M         117M  773M           14% /boot
+/dev/mapper/vg--system-lvhome     2,0G          13M  1,8G            1% /home
+/dev/mapper/vg--system-lvvar      2,0G         406M  1,5G           22% /lvvar
+tmpfs                             197M          60K  197M            1% /run/user/113
+tmpfs                             197M          52K  197M            1% /run/user/1000
+[?2004hroot@debian12:~# exi[Kit
+[?2004lвыход
+[?2004h]0;vagrant@debian12: ~[01;32mvagrant@debian12[00m:[01;34m~[00m$ [?2004l
+выход
+Connection to 192.168.121.10 closed.
+7]2;max@localhost.localdomain:~/vagrant/vg3]1;localhost.localdomain8max@localhost:~/vagrant/vg3> exit
+exit
+
+Script done on 2024-07-05 10:06:57+03:00 [COMMAND_EXIT_CODE="0"]
