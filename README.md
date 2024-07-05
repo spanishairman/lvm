@@ -180,12 +180,13 @@ Vagrant 2.2.18
 #### Изменение размера логического тома и файловой системы н нём
 Создадим большой файл размером 8Gb и проверим наличие места на диске. Используем команду `dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress`, для просмотра свободного места - `df -Th /data/`
 ```
+    dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress
     Debian12: 8232370176 bytes (8,2 GB, 7,7 GiB) copied, 28 s, 291 MB/s
     Debian12: dd: ошибка записи '/data/test.log': На устройстве не осталось свободного места
     Debian12: 7948+0 records in
     Debian12: 7947+0 records out
     Debian12: 8333492224 bytes (8,3 GB, 7,8 GiB) copied, 28,4922 s, 292 MB/s
-
+    df -Th /data/
     Debian12: Файловая система       Тип  Размер Использовано  Дост Использовано% Cмонтировано в
     Debian12: /dev/mapper/data-large ext4   7,8G         7,8G     0          100% /data
 ```
