@@ -659,7 +659,7 @@ tmpfs                             197M          52K  197M            1% /run/use
 необходимо скачать файлы [screenrecord-2024-07-05.script](screenrecord-2024-07-05.script) и [screenrecord-2024-07-05.time](screenrecord-2024-07-05.time), 
 после чего выполнить в каталоге с загруженными файлами команду
 ```
-scriptreplay ./screenrecord-2024-06-07.time ./screenrecord-2024-06-07.script
+scriptreplay ./screenrecord-2024-07-05.time ./screenrecord-2024-07-05.script
 ```
 
 Спасибо за прочтение! :potted_plant:
