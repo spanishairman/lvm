@@ -178,7 +178,7 @@ Vagrant 2.2.18
     Debian12: /dev/mapper/data-large on /data type ext4 (rw,relatime)
 ```
 #### Изменение размера логического тома и файловой системы н нём
-Создадим большой файл размером 8Gb и проверим наличие места на диске. Используем команду "dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress", для просмотра свободного места - "df -Th /data/"
+Создадим большой файл размером 8Gb и проверим наличие места на диске. Используем команду `dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress`, для просмотра свободного места - `df -Th /data/`
 ```
     Debian12: 8232370176 bytes (8,2 GB, 7,7 GiB) copied, 28 s, 291 MB/s
     Debian12: dd: ошибка записи '/data/test.log': На устройстве не осталось свободного места
