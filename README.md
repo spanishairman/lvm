@@ -306,3 +306,60 @@ Vagrant 2.2.18
     vgreduce -y data /dev/vdc
     Debian12:   Removed "/dev/vdc" from volume group "data"
 ```
+#### Перенос каталогов /var, /home на lvm raid
+Создадим новые физические тома для логических томов lvvar и lvhome
+```
+    pvcreate /dev/vdd /dev/vde
+    Debian12:   Physical volume "/dev/vdd" successfully created.
+    Debian12:   Physical volume "/dev/vde" successfully created.
+```
+Расширим системную группу томов vg-system, здесь устройства vdc и vdd будут использоваться для создания массива, а vde для возможности делать снимки томов
+```
+    vgextend vg-system /dev/vdc /dev/vdd /dev/vde
+    Debian12:   Volume group "vg-system" successfully extended
+```
+Создадим логические тома lvvar и lvhome тип RAID1 на физических устройствах /dev/vdc и /dev/vdd
+```
+    lvcreate --type raid1 --mirrors 1 -l 50%PVS -n lvvar vg-system /dev/vdc /dev/vdd
+    Debian12:   Logical volume "lvvar" created.
+    lvcreate --type raid1 --mirrors 1 -l 100%PVS -n lvhome vg-system /dev/vdc /dev/vdd
+    Debian12:   Logical volume "lvhome" created.
+```
+> Здесь, при создании логического тома lvvar, мы использовали 50% свободного места **физического устройства** (ключ 50%PVS), 
+> на котором размещается логический том, т.е. при размере устройств vdc и vdd - 4Gb, логический том lvvar будет ~2Gb. 
+> При создании тома lvhome мы уже используем 100% оставшегося свободного места на **физическом устройстве**, т.е. тоже ~2Gb,
+> напомню, 50% места перед этим занял том lvvar 
+
+Создадим ФС на томе, смонтируем его во временную директорию и скопируем содержимое каталогов /var и /home на эти тома
+```
+    mkfs.ext4 /dev/mapper/vg--system-lvvar
+    Debian12: mke2fs 1.47.0 (5-Feb-2023)
+    Debian12: Discarding device blocks: done         
+    Debian12: Creating filesystem with 523264 4k blocks and 130816 inodes
+    Debian12: Filesystem UUID: 9d104c46-c198-4823-88cf-98e0f7a28bab
+    Debian12: Superblock backups stored on blocks:
+    Debian12:   32768, 98304, 163840, 229376, 294912
+    Debian12: 
+    Debian12: Allocating group tables: done 
+    Debian12: Writing inode tables: done 
+    Debian12: Creating journal (8192 blocks): done
+    Debian12: Writing superblocks and filesystem accounting information: done 
+    Debian12:
+    mkfs.ext4 /dev/mapper/vg--system-lvhome
+    Debian12: mke2fs 1.47.0 (5-Feb-2023)
+    Debian12: Discarding device blocks: done         
+    Debian12: Creating filesystem with 522240 4k blocks and 130560 inodes
+    Debian12: Filesystem UUID: 1dd36192-f8e1-4d90-9cd3-d1f2b63a6b37
+    Debian12: Superblock backups stored on blocks:
+    Debian12:   32768, 98304, 163840, 229376, 294912
+    Debian12: 
+    Debian12: Allocating group tables: done 
+    Debian12: Writing inode tables: done 
+    Debian12: Creating journal (8192 blocks): done
+    Debian12: Writing superblocks and filesystem accounting information: done 
+    Debian12:
+    mount --mkdir /dev/mapper/vg--system-lvvar /lvvar
+    mount --mkdir /dev/mapper/vg--system-lvhome /lvhome
+    rsync -a /var/ /lvvar
+    rsync -a /home/ /lvhome
+```
