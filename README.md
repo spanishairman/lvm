@@ -1,5 +1,5 @@
-### Дисковая подсистема. lvm
-#### Подготовка окружения
+## Дисковая подсистема. lvm
+### Подготовка окружения
 В нашем примере используется гипервизор Qemu-KVM, библиотека Libvirt. В качестве хостовой системы - OpenSuse Leap 15.5.
 
 Для работы Vagrant с Libvirt установлен пакет vagrant-libvirt:
@@ -29,7 +29,7 @@ Vagrant 2.2.18
 ```
 Образ операционной системы создан заранее, для этого установлен [Debian Linux из официального образа netinst](https://www.debian.org/distrib/netinst)
 
-#### Особенности работы Vagrant, установленного из официального репозитория OpenSuse Leap 15.5, с дополнительными дисковыми устройствами в гостевой ОС
+### Особенности работы Vagrant, установленного из официального репозитория OpenSuse Leap 15.5, с дополнительными дисковыми устройствами в гостевой ОС
 Для добавления дисков в гостевой системе, используем следующий код в [Vagrantfile](Vagrantfile):
 ```
   config.vm.provider "libvirt" do |lv|
@@ -52,8 +52,8 @@ Vagrant 2.2.18
 то Vagrant сам назначит их по латинскому алфавиту с префиксом vd, начиная с первого свободного символа. Например, если в гостевой системе после установки используется устройство
 /dev/vda, то первое дополнительное дисковое устройство будет /dev/vdb.
 
-#### Provisioning. 
-#### Установка пакетов, необходимых для дальнейшей работы
+### Provisioning. 
+### Установка пакетов, необходимых для дальнейшей работы
 Нам потребуются два дополнительных пакета - rsync и arch-install-scripts. Первый - для копирования содержимого разделов /var и /home на новые файловые системы, второй - для генерирования содержимого /etc/fstab.
 ```
   config.vm.provision "shell", inline: <<-SHELL
@@ -64,7 +64,7 @@ Vagrant 2.2.18
   # apt update
     apt install -y rsync arch-install-scripts
 ```
-#### Работа с логическими томами
+### Работа с логическими томами
 Добавим физические тома и группы томов
 ```
     pvcreate /dev/vdb
@@ -177,7 +177,7 @@ Vagrant 2.2.18
     mount | grep /data
     Debian12: /dev/mapper/data-large on /data type ext4 (rw,relatime)
 ```
-##### Изменение размера логического тома и файловой системы н нём
+#### Изменение размера логического тома и файловой системы н нём
 Создадим большой файл размером 8Gb и проверим наличие места на диске. Используем команду "dd if=/dev/zero of=/data/test.log bs=1M count=8000 status=progress", для просмотра свободного места - "df -Th /data/"
 ```
     Debian12: 8232370176 bytes (8,2 GB, 7,7 GiB) copied, 28 s, 291 MB/s
@@ -259,7 +259,7 @@ Vagrant 2.2.18
     Debian12:   LV    VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
     Debian12:   large data -wi-ao---- 10,00g
 ```
-##### Работа со снимками логических томов
+#### Работа со снимками логических томов
 Создадим снимок тома large
 ```
     lvcreate -L 500M --snapshot -n large-snap /dev/mapper/data-large
@@ -290,6 +290,19 @@ Vagrant 2.2.18
 ```
     mount /dev/mapper/data-large /data/
     df -Th /data/
-    lvs /dev/mapper/data-large
+    Debian12: итого 8138196
+    Debian12: drwx------ 2 root root      16384 июл  5 09:55 lost+found
+    Debian12: -rw-r--r-- 1 root root 8333492224 июл  5 09:55 test.log
 
+```
+Удалим все логические тома в группе data
+```
+    lvremove -y data
+    Debian12:   Logical volume "large" successfully removed.
+    Debian12:   Logical volume "small" successfully removed.
+```
+Удалим физический том из группы data
+```
+    vgreduce -y data /dev/vdc
+    Debian12:   Removed "/dev/vdc" from volume group "data"
 ```
