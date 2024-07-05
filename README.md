@@ -65,7 +65,7 @@ Vagrant 2.2.18
     apt install -y rsync arch-install-scripts
 ```
 #### Работа с логическими томами
-Добавим физические тома и группы томов
+Добавим физический том и группу томов
 ```
     pvcreate /dev/vdb
     vgcreate data /dev/vdb
@@ -112,6 +112,7 @@ Vagrant 2.2.18
 ```
 Посмотрим информацию о группе томов
 ```
+    vgdisplay data
     Debian12:   --- Volume group ---
     Debian12:   VG Name               data
     Debian12:   System ID
