@@ -579,7 +579,7 @@ resize2fs 1.47.0 (5-Feb-2023)
 Resizing the filesystem on /dev/mapper/vg--system-lvolroot to 4194304 (4k) blocks.
 The filesystem on /dev/mapper/vg--system-lvolroot is now 4194304 (4k) blocks long.
 ```
-Теперь можно уменьшит размер логического тома корневой файловой системы
+Теперь можно уменьшить размер логического тома корневой файловой системы
 ```
 root@debian12:~# lvreduce -y -L 16G /dev/mapper/vg--system-lvolroot
   WARNING: Reducing active logical volume to 16,00 GiB.
