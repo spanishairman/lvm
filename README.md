@@ -564,7 +564,7 @@ root@debian12:~# mount | grep "mapper"
 /dev/mapper/vg--system-lvhome on /home type ext4 (rw,relatime)
 /dev/mapper/vg--system-lvvar on /lvvar type ext4 (rw,relatime)
 ```
-Видим, что мы загрузились с временной корневой ФС. Так как основная корневая ФС сейчас не смонтирована, куменьшим её до 16Gb
+Видим, что мы загрузились с временной корневой ФС. Так как основная корневая ФС сейчас не смонтирована, уменьшим её до 16Gb
 ```
 root@debian12:~# e2fsck -f /dev/mapper/vg--system-lvolroot
 e2fsck 1.47.0 (5-Feb-2023)
